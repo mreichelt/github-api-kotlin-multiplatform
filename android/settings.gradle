@@ -1,0 +1,2 @@
+rootProject.name='GitHubAPI with Kotlin Multiplatform'
+include ':app'
