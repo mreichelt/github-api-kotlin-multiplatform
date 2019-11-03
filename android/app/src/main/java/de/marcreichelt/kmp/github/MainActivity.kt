@@ -9,7 +9,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        findViewById<TextView>(R.id.main_text).text = createApplicationScreenMessage()
+        val mainText = findViewById<TextView>(R.id.main_text)
+        mainText.text = createApplicationScreenMessage()
+
+        loadGitHubWebpageAsync {
+            runOnUiThread {
+                mainText.text = it
+            }
+        }
     }
 
 }
