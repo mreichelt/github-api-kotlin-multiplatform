@@ -1,2 +1,3 @@
-rootProject.name='GitHubAPI with Kotlin Multiplatform'
+rootProject.name = 'GitHubAPI with Kotlin Multiplatform'
 include ':app'
+include ':SharedCode'
