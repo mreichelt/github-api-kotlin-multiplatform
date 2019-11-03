@@ -15,6 +15,8 @@
 		5E56BBB1236E4F1D00D7A30D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E56BBAF236E4F1D00D7A30D /* LaunchScreen.storyboard */; };
 		5E56BBBC236E4F1E00D7A30D /* GitHubAPI_with_Kotlin_MultiplatformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E56BBBB236E4F1E00D7A30D /* GitHubAPI_with_Kotlin_MultiplatformTests.swift */; };
 		5E56BBC7236E4F1E00D7A30D /* GitHubAPI_with_Kotlin_MultiplatformUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E56BBC6236E4F1E00D7A30D /* GitHubAPI_with_Kotlin_MultiplatformUITests.swift */; };
+		5E9AB04F236E57E2008DA64F /* SharedCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9AB04E236E57E2008DA64F /* SharedCode.framework */; };
+		5E9AB050236E57E2008DA64F /* SharedCode.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9AB04E236E57E2008DA64F /* SharedCode.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		5E9AB051236E57E2008DA64F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5E9AB050236E57E2008DA64F /* SharedCode.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		5E56BBA1236E4F1600D7A30D /* GitHubAPI with Kotlin Multiplatform.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GitHubAPI with Kotlin Multiplatform.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E56BBA4236E4F1600D7A30D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +65,8 @@
 		5E56BBC2236E4F1E00D7A30D /* GitHubAPI with Kotlin MultiplatformUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GitHubAPI with Kotlin MultiplatformUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E56BBC6236E4F1E00D7A30D /* GitHubAPI_with_Kotlin_MultiplatformUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPI_with_Kotlin_MultiplatformUITests.swift; sourceTree = "<group>"; };
 		5E56BBC8236E4F1E00D7A30D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5E9AB04A236E5706008DA64F /* SharedCode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SharedCode.framework; path = ../android/SharedCode/build/bin/ios/debugFramework/SharedCode.framework; sourceTree = "<group>"; };
+		5E9AB04E236E57E2008DA64F /* SharedCode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SharedCode.framework; path = "../android/SharedCode/build/xcode-frameworks/SharedCode.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E9AB04F236E57E2008DA64F /* SharedCode.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +102,7 @@
 				5E56BBBA236E4F1E00D7A30D /* GitHubAPI with Kotlin MultiplatformTests */,
 				5E56BBC5236E4F1E00D7A30D /* GitHubAPI with Kotlin MultiplatformUITests */,
 				5E56BBA2236E4F1600D7A30D /* Products */,
+				5E9AB049236E5706008DA64F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -136,6 +156,15 @@
 			path = "GitHubAPI with Kotlin MultiplatformUITests";
 			sourceTree = "<group>";
 		};
+		5E9AB049236E5706008DA64F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5E9AB04E236E57E2008DA64F /* SharedCode.framework */,
+				5E9AB04A236E5706008DA64F /* SharedCode.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,9 +172,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5E56BBCB236E4F1E00D7A30D /* Build configuration list for PBXNativeTarget "GitHubAPI with Kotlin Multiplatform" */;
 			buildPhases = (
+				5E9AB052236E584C008DA64F /* ShellScript */,
 				5E56BB9D236E4F1600D7A30D /* Sources */,
 				5E56BB9E236E4F1600D7A30D /* Frameworks */,
 				5E56BB9F236E4F1600D7A30D /* Resources */,
+				5E9AB051236E57E2008DA64F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -261,6 +292,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5E9AB052236E584C008DA64F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"$SRCROOT/../android/SharedCode/build/xcode-frameworks\"\n./gradlew :SharedCode:packForXCode -PXCODE_CONFIGURATION=${CONFIGURATION}\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5E56BB9D236E4F1600D7A30D /* Sources */ = {
@@ -437,12 +488,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"GitHubAPI with Kotlin Multiplatform/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../android/SharedCode/build/xcode-frameworks";
 				INFOPLIST_FILE = "GitHubAPI with Kotlin Multiplatform/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.marcreichelt.GitHubAPI-with-Kotlin-Multiplatform";
+				PRODUCT_BUNDLE_IDENTIFIER = de.marcreichelt.kmp.github;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -456,12 +508,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"GitHubAPI with Kotlin Multiplatform/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../android/SharedCode/build/xcode-frameworks";
 				INFOPLIST_FILE = "GitHubAPI with Kotlin Multiplatform/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.marcreichelt.GitHubAPI-with-Kotlin-Multiplatform";
+				PRODUCT_BUNDLE_IDENTIFIER = de.marcreichelt.kmp.github;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
