@@ -41,6 +41,10 @@ kotlin {
         implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
     }
 
+    sourceSets["androidTest"].dependencies {
+        implementation("junit:junit:4.12")
+    }
+
     sourceSets["iosMain"].dependencies {
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serializationVersion")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
