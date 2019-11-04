@@ -24,21 +24,14 @@ fun createApplicationScreenMessage(): String {
     return "Kotlin Rocks on ${platformName()}"
 }
 
-fun loadGitHubWebpage(): String {
-    return runBlocking {
-        client.get<String>("https://github.com/")
-    }
+suspend fun loadGitHubWebpage(): String {
+    return client.get("https://github.com/")
 }
 
 fun loadGitHubWebpageAsync(onLoad: (String) -> Unit) {
-    println("loadGitHubWebpageAsync")
     GlobalScope.apply {
-        println("in global scope")
         launch(applicationDispatcher) {
-            println("in launch")
-            val body: String = client.get("https://github.com/")
-            println("body loaded with ${body.length} characters")
-            onLoad(body)
+            onLoad(loadGitHubWebpage())
         }
     }
 }
