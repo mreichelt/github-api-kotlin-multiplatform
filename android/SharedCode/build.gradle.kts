@@ -1,7 +1,13 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("multiplatform")
+    id("kotlinx-serialization")
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions.jvmTarget = "1.8"
 }
 
 kotlin {
@@ -31,6 +37,11 @@ kotlin {
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serializationVersion")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutinesVersion")
         implementation("io.ktor:ktor-client-core:$ktorVersion")
+        implementation("io.ktor:ktor-client-json:$ktorVersion")
+        implementation("io.ktor:ktor-client-serialization:$ktorVersion")
+        implementation("io.ktor:ktor-client-logging:$ktorVersion")
+        api("io.islandtime:core:0.1.0-SNAPSHOT")
+        implementation("co.touchlab:stately:0.9.3")
     }
 
     sourceSets["androidMain"].dependencies {
@@ -39,6 +50,10 @@ kotlin {
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
         implementation("io.ktor:ktor-client-android:$ktorVersion")
         implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
+        implementation("io.ktor:ktor-client-json-jvm:$ktorVersion")
+        implementation("io.ktor:ktor-client-serialization-jvm:$ktorVersion")
+        implementation("io.ktor:ktor-client-logging-jvm:$ktorVersion")
+        api("io.islandtime:core-jvm:0.1.0-SNAPSHOT")
     }
 
     sourceSets["androidTest"].dependencies {
@@ -49,6 +64,11 @@ kotlin {
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serializationVersion")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
         implementation("io.ktor:ktor-client-ios:$ktorVersion")
+        implementation("io.ktor:ktor-client-json-native:$ktorVersion")
+        implementation("io.ktor:ktor-client-serialization-native:$ktorVersion")
+        implementation("io.ktor:ktor-client-logging-native:$ktorVersion")
+        api("io.islandtime:core-iosx64:0.1.0-SNAPSHOT")
+        implementation("co.touchlab:stately-collections:0.9.3")
     }
 }
 

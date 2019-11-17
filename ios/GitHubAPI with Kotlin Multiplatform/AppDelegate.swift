@@ -18,8 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // TODO: remove
-        CommonKt.loadGitHubWebpageAsync { (body : String) in
-            print("Received body in iOS with \(body.count) characters")
+//        CommonKt.loadGitHubWebpageAsync { (body : String) in
+//            print("Received body in iOS with \(body.count) characters")
+//        }
+        
+        CommonKt.listReposAsync(username: "mreichelt") { (body : [GitHubRepo]) in
+            print(body)
+            let popular = CommonKt.printMostPopularRepositoriesOrderedByFreshness(repos: body)
         }
         
         return true

@@ -1,6 +1,6 @@
 package de.marcreichelt.kmp.github
 
-import io.ktor.client.HttpClient
+import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.ios.Ios
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -11,7 +11,7 @@ import platform.darwin.dispatch_get_main_queue
 import platform.darwin.dispatch_queue_t
 import kotlin.coroutines.CoroutineContext
 
-internal actual val client: HttpClient = HttpClient(Ios)
+internal actual fun httpClientEngine(): HttpClientEngine = Ios.create()
 
 internal actual val applicationDispatcher: CoroutineDispatcher =
     NsQueueDispatcher(dispatch_get_main_queue())
