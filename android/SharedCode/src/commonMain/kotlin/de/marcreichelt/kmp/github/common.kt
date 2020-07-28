@@ -1,8 +1,6 @@
 package de.marcreichelt.kmp.github
 
-import io.islandtime.ZonedDateTime
-import io.islandtime.asZonedDateTime
-import io.islandtime.toOffsetDateTime
+import io.islandtime.*
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.features.json.JsonFeature
@@ -16,6 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.*
 import kotlinx.serialization.builtins.list
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonConfiguration
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -23,9 +22,18 @@ expect fun platformName(): String
 
 internal expect fun httpClientEngine(): HttpClientEngine
 
+val jsonInstance = Json(
+    JsonConfiguration(
+        isLenient = true,
+        ignoreUnknownKeys = true,
+        serializeSpecialFloatingPointValues = true,
+        useArrayPolymorphism = true
+    )
+)
+
 val client = HttpClient(httpClientEngine()) {
     install(JsonFeature) {
-        serializer = KotlinxSerializer(Json.nonstrict)
+        serializer = KotlinxSerializer(jsonInstance)
     }
     install(Logging)
 }
@@ -56,7 +64,7 @@ fun loadGitHubWebpageAsync(onLoad: (String) -> Unit) {
 
 suspend fun listRepos(username: String): List<GitHubRepo> {
     val body = client.get<String>("https://api.github.com/users/$username/repos")
-    return Json.nonstrict.parse(GitHubRepo.serializer().list, body)
+    return jsonInstance.parse(GitHubRepo.serializer().list, body)
 }
 
 fun listReposAsync(username: String, onLoad: (List<GitHubRepo>) -> Unit) {
@@ -70,11 +78,11 @@ fun listReposAsync(username: String, onLoad: (List<GitHubRepo>) -> Unit) {
 fun printMostPopularRepositoriesOrderedByFreshness(repos: List<GitHubRepo>): List<GitHubRepo> {
     return repos
         .filter { it.stargazersCount > 0 }
-        .sortedByDescending { it.createdAt.unixEpochSecond }
+        .sortedByDescending { it.createdAt.secondOfUnixEpoch }
         .sortedByDescending { it.stargazersCount }
         .also { popularRepositories ->
             popularRepositories.forEach {
-                println("(${it.stargazersCount}\uD83C\uDF1F) ${it.name}, created ${it.createdAt.yearMonth}, language ${it.language}")
+                println("(${it.stargazersCount}\uD83C\uDF1F) ${it.name}, created ${it.createdAt.toYearMonth()}, language ${it.language}")
             }
         }
 }
@@ -108,7 +116,7 @@ object ZonedDateTimeSerializer : KSerializer<ZonedDateTime> {
             .asZonedDateTime()
     }
 
-    override fun serialize(encoder: Encoder, obj: ZonedDateTime) {
-        encoder.encodeString(obj.instant.toString())
+    override fun serialize(encoder: Encoder, value: ZonedDateTime) {
+        encoder.encodeString(value.toInstant().toString())
     }
 }
