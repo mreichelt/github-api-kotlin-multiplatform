@@ -14,7 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.*
-import kotlinx.serialization.internal.StringDescriptor
+import kotlinx.serialization.builtins.list
 import kotlinx.serialization.json.Json
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
@@ -100,7 +100,7 @@ data class GitHubRepo(
 object ZonedDateTimeSerializer : KSerializer<ZonedDateTime> {
 
     override val descriptor: SerialDescriptor =
-        StringDescriptor.withName("ZonedDateTime")
+        PrimitiveDescriptor("ZonedDateTime", PrimitiveKind.STRING)
 
     override fun deserialize(decoder: Decoder): ZonedDateTime {
         return decoder.decodeString()

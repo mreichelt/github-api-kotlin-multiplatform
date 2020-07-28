@@ -28,9 +28,11 @@ kotlin {
 
     jvm("android")
 
-    val ktorVersion = "1.2.5"
-    val coroutinesVersion = "1.3.2"
-    val serializationVersion = "0.13.0"
+    val ktorVersion = "1.3.2"
+    val coroutinesVersion = "1.3.8"
+    val serializationVersion = "0.20.0"
+    val statelyVersion = "1.0.3"
+    val islandTimeVersion = "0.2.4"
 
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
@@ -40,8 +42,8 @@ kotlin {
         implementation("io.ktor:ktor-client-json:$ktorVersion")
         implementation("io.ktor:ktor-client-serialization:$ktorVersion")
         implementation("io.ktor:ktor-client-logging:$ktorVersion")
-        api("io.islandtime:core:0.1.0-SNAPSHOT")
-        implementation("co.touchlab:stately:0.9.3")
+        api("io.islandtime:core:$islandTimeVersion")
+        implementation("co.touchlab:stately-common:$statelyVersion")
     }
 
     sourceSets["androidMain"].dependencies {
@@ -53,7 +55,7 @@ kotlin {
         implementation("io.ktor:ktor-client-json-jvm:$ktorVersion")
         implementation("io.ktor:ktor-client-serialization-jvm:$ktorVersion")
         implementation("io.ktor:ktor-client-logging-jvm:$ktorVersion")
-        api("io.islandtime:core-jvm:0.1.0-SNAPSHOT")
+        api("io.islandtime:core-jvm:$islandTimeVersion")
     }
 
     sourceSets["androidTest"].dependencies {
@@ -64,11 +66,12 @@ kotlin {
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serializationVersion")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
         implementation("io.ktor:ktor-client-ios:$ktorVersion")
+        implementation("io.ktor:ktor-client-ios-iosx64:$ktorVersion")
         implementation("io.ktor:ktor-client-json-native:$ktorVersion")
         implementation("io.ktor:ktor-client-serialization-native:$ktorVersion")
         implementation("io.ktor:ktor-client-logging-native:$ktorVersion")
-        api("io.islandtime:core-iosx64:0.1.0-SNAPSHOT")
-        implementation("co.touchlab:stately-collections:0.9.3")
+        api("io.islandtime:core-iosx64:$islandTimeVersion")
+        implementation("co.touchlab:stately-collections:$statelyVersion")
     }
 }
 
