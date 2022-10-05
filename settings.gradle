@@ -1,0 +1,25 @@
+//dependencyResolutionManagement {//The next generation remove allprojects.repositories at build.gradle
+//    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+//    repositories {
+//
+//        google()
+//        mavenCentral()
+//        maven {
+//            url "https://plugins.gradle.org/m2/"
+//        }
+//        maven {
+//            url "https://maven.pkg.jetbrains.space/public/p/compose/dev"
+//        }
+//        maven {
+//            url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+//        }
+//        gradlePluginPortal()
+//        jcenter()
+//    }
+//}
+rootProject.name = "GitHubAPIWithKotlinMultiplatform"
+include ':app'
+project(":app").projectDir = file("./android/app")
+include ':SharedCode'
+project(":SharedCode").projectDir = file("./android/SharedCode")
+

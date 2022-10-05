@@ -3,18 +3,17 @@ package de.marcreichelt.kmp.github
 import io.islandtime.*
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
-import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.json.serializer.KotlinxSerializer
-import io.ktor.client.features.logging.Logging
+import io.ktor.client.plugins.kotlinx.serializer.*
+import io.ktor.client.plugins.logging.*
 import io.ktor.client.request.get
+import io.ktor.server.application.*
+import io.ktor.server.plugins.contentnegotiation.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.*
-import kotlinx.serialization.builtins.list
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -22,20 +21,21 @@ expect fun platformName(): String
 
 internal expect fun httpClientEngine(): HttpClientEngine
 
-val jsonInstance = Json(
-    JsonConfiguration(
-        isLenient = true,
-        ignoreUnknownKeys = true,
-        serializeSpecialFloatingPointValues = true,
-        useArrayPolymorphism = true
-    )
-)
+val jsonInstance = Json {
+    prettyPrint = true
+    isLenient = true
+    ignoreUnknownKeys = true
+}
 
 val client = HttpClient(httpClientEngine()) {
-    install(JsonFeature) {
-        serializer = KotlinxSerializer(jsonInstance)
+    install(ContentNegotiation) {
+        jsonInstance
     }
     install(Logging)
+}
+
+fun install(key: RouteScopedPlugin<ContentNegotiationConfig>, block: HttpClient.() -> Unit) {
+
 }
 
 internal expect val applicationDispatcher: CoroutineDispatcher
@@ -50,7 +50,7 @@ fun createApplicationScreenMessage(): String {
 }
 
 suspend fun loadGitHubWebpage(): String {
-    return client.get("https://github.com/")
+    return client.get("https://github.com/").toString()
 }
 
 fun loadGitHubWebpageAsync(onLoad: (String) -> Unit) {
@@ -60,7 +60,6 @@ fun loadGitHubWebpageAsync(onLoad: (String) -> Unit) {
         }
     }
 }
-
 
 suspend fun listRepos(username: String): List<GitHubRepo> {
     val body = client.get<String>("https://api.github.com/users/$username/repos")
