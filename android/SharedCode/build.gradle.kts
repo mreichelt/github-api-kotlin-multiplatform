@@ -11,6 +11,10 @@ tasks.withType<KotlinCompile> {
 }
 
 kotlin {
+    targets {
+        jvm("android") // for java/kotlin modules only
+//        android() //for an Android base module
+    }
     //select iOS target platform depending on the Xcode environment variables
     val iOSTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
         if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
@@ -24,9 +28,7 @@ kotlin {
                 baseName = "SharedCode"
             }
         }
-    }
-
-    jvm("android")
+    } 
 
     val ktorVersion = "1.3.2"
     val coroutinesVersion = "1.3.8"
