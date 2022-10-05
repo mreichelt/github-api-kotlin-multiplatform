@@ -1,4 +1,21 @@
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        gradlePluginPortal()
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven {
+            url "https://maven.pkg.jetbrains.space/public/p/compose/dev"
+        }
+        jcenter() // Warning: this repository is going to shut down soon
+    }
+}
+rootProject.name = "GitHubAPIWithKotlinMultiplatform"
 include ':app'
+project(":app").projectDir = file("./android/app")
 include ':SharedCode'
-rootProject.name = 'GitHubAPIWithKotlinMultiplatform'
-enableFeaturePreview('GRADLE_METADATA')
+project(":SharedCode").projectDir = file("./android/SharedCode")
+
